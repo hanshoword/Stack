@@ -246,6 +246,7 @@ public:
 		}
 	}
 ```
+
 매개변수로 데이터를 받아옵니다. 
 
 먼저 top의 위치가 Stack Size를 넘어서는지 체크하여 넘는다면 에러메시지를 출력합니다.
@@ -271,6 +272,7 @@ top의 초기값은 -1이며, ++top이 index가 되므로 index 0, 1, 2, 3 ... �
 		}
 	}
 ```
+
 pop을 하기 위해서는 스택에 삽입된 데이터가 존재해야합니다.
 
 따라서 빈 스택이라면 pop을 할 수 없기때문에 에러메세지를 출력합니다.
@@ -296,14 +298,114 @@ pop은 먼저 stack[top]에 있는 데이터를 반환하고 top을 하나 줄�
 		}
 	}
 ```
+
 pop과 구조가 동일하며 데이터를 반환하고 삭제만 수행합니다.
 
+##### peek 함수 : top을 반환
 
 ```c
+/*top 원소 검색*/
+	T peek()
+	{
+		if (top == -1)
+		{
+			cout << endl << endl << "Stack is Empty" << endl;
+			exit(1);
+		}
+		else
+		{
+			return stack[top];
+		}
+	}
 ```
 
+pop과 유사하지만, top에 있는 데이터만 보는 용도로 사용됩니다.
+
+
+##### print Stack 함수 : 스택의 데이터를 차례대로 출력하는 함수
 ```c
+/*Stack Print*/
+	void printStack()
+	{
+		int i;
+		cout << endl << "Array Stack [ ";
+		for (i = 0; i <= top; i++)
+		{
+
+			cout << stack[i] << " ";
+		}
+		cout << "]" << endl << endl;
+	}
 ```
 
+index를 0부터 top까지(데이터가 삽입된대까지) 반복하여 데이터를 출력다.
+
+
+##### size : 현재 스택에 있는 데이터 개수를 반환
+
 ```c
+	int size()
+	{
+		return top+1;
+	}
 ```
+
+top은 private이므로 직접접근이 안됩니다.
+
+top이 -1일때 0개, 0일때 1개 ... 이므로 top + 1이 size가 됩니다.
+
+
+##### main
+
+```c
+#include <iostream>
+#include "CStack.h"
+#include "CStackArray.h"
+
+using namespace std;
+
+int main()
+{
+	CStackList<int> S;
+	for (int i = 0; i < 10; i++)
+	{
+		S.push(i);
+	}
+	S.printStack();
+
+	cout << "Size :" << S.size() << endl << endl;
+
+	cout << "Pop [ ";
+	for (int i = 0; i < 10; i++)
+	{
+		cout << S.pop() << " ";
+	}
+	cout << "]" << endl << endl;
+	cout << "Size :" << S.size() << endl << endl;
+
+
+	CStackArray<int> S_A;
+
+	for (int i = 0; i < 10; i++)
+	{
+		S_A.push(i);
+	}
+	S_A.printStack();
+	cout << "Size :" << S_A.size() << endl << endl;
+
+	cout << "Pop [ ";
+	for (int i = 0; i < 10; i++)
+	{
+		cout << S_A.pop() << " ";
+	}
+	cout << "]" << endl << endl;
+	cout << "Size :" << S.size() << endl << endl;
+
+	return 0;
+}
+```
+
+##### 결과
+
+<img src = "https://user-images.githubusercontent.com/47768726/59846166-16e71380-939a-11e9-97a4-a33960ababda.JPG" width = "90%"></img>
+
